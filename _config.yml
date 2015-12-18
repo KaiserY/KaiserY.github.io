@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 恐惧古斯塔斯小杆子
+title: KaiserY Hub
 subtitle:
 description:
 author: KaiserY
@@ -40,6 +40,7 @@ future: true
 highlight:
   enable: true
   line_number: true
+  auto_detect: true
   tab_replace:
 
 # Category & Tag
@@ -70,4 +71,3 @@ deploy:
   type: git
   repo: https://github.com/KaiserY/KaiserY.github.io.git
   branch: master
-  message:
