@@ -70,5 +70,5 @@ theme: next-0.4.5.2
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/KaiserY/KaiserY.github.io.git
+  repo: git@github.com:KaiserY/KaiserY.github.io.git
   branch: master
