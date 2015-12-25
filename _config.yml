@@ -10,6 +10,10 @@ author: KaiserY
 language: zh-Hans
 timezone:
 
+since: 2015
+
+avatar: /images/avatar.jpg
+
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://kaisery.github.io/
@@ -65,6 +69,10 @@ pagination_dir: page
 ## Themes: http://hexo.io/themes/
 # theme: landscape
 theme: next-0.4.5.2
+
+# Social links
+social:
+  github: https://github.com/KaiserY
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
