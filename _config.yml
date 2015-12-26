@@ -70,6 +70,11 @@ pagination_dir: page
 # theme: landscape
 theme: next-0.4.5.2
 
+# Creative Commons 4.0 International License.
+# http://creativecommons.org/
+# Available: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero
+creative_commons: by-nc-sa
+
 # Social links
 social:
   github: https://github.com/KaiserY
