@@ -13,7 +13,7 @@ date: 2015-12-26 15:36:51
 
 # Expecting position
 * Full Stack Developer(more backend)
-* Data mining
+* Data mining, machine learning
 
 ## Education
 ### Taijin University of Science & Technology
@@ -25,7 +25,7 @@ date: 2015-12-26 15:36:51
 * Quick Learner, Good at solving problems though `Baidu`/`Google`
 * English: `CET6`
 * Japanese: `N1`
-* Languages Mostly used : `Java`, `C#`, `Nodejs`, `PHP`
+* Languages Mostly used : `Java`、`Nodejs`、`PHP`、`C#`
 * Languages I am learning: `Scala`
 * Working system environment: `Fedora Workstation 23`, `Gnome 3`, `Oh My Zsh`
 * Mostly visited website: `Hacker News`, `InfoQ`, `TechCrunch`, `Engadget`, `phoronix`, `V2EX`, `36kr`
@@ -35,10 +35,10 @@ date: 2015-12-26 15:36:51
 ### General Data Technology Co., Ltd, `2015 Apr` ~
 #### Shujuguan(shujuguan.cn), `2015 Apr` ~
 * Internet plus data analysis product(SaaS), which was similar to SiSence and DataHero. Agile Team, Scrum and Kanban.
-* User Stories: backend service(data type recognition, third party datasource, unit test, etc.), migrate from SVN to Git, make a agile Git branching model, Baidu location API service based no Nodejs.
-* **App Stacks:** **Java 8**、**Spring MVC**、**JUnit**、**Findbugs**、**Apache POI**、`jOOQ`、`ThinkPHP`、`OpenCenter`、`Wordpress`、**Express**、**Babel**、`Backbone`、`Highcharts`、`ECharts`、`Underscore`
-* **Data Stacks:** **MongoDB**、`GBase 8a`、`Redis`
-* **DevOps Stacks:** **GitLab**、**Asana**、**Jenkins**、**Maven**、`LAMP`、`Grunt`、**Gulp**、**Docker**
+* **User Stories: ** backend service(data type recognition, third party datasource, unit test, machine learning, etc.), migrate from SVN to Git, scheme an agile Git branching model, Baidu location API service based on Nodejs.
+* **App Stacks:** **Spring MVC**, **JUnit**, **Findbugs**, **Apache POI**, **Spark**, `jOOQ`, `ThinkPHP`, `OpenCenter`, `Wordpress`, **Express**, **Babel**, `Backbone`, `Highcharts`, `ECharts`, `Underscore`
+* **Data Stacks:** **MongoDB**, `GBase 8a`, `Redis`
+* **DevOps Stacks:** **GitLab**, **Asana**, **Jenkins**, **Maven**, `LAMP`, `Grunt`, **Gulp**, **ELK**, **Docker**
 * **Conclusion:** To be continued
 
 ### ANHUI WANTONG TECHNOLOGY Co.,Ltd, Taijin Research Center, `2012 Nov` ~ `2015 Apr`
@@ -53,5 +53,5 @@ date: 2015-12-26 15:36:51
 * I was participated in design and development of the toll part. I was committed to design and implement the entire hareware interface, `Windows`/`Linux` platform compatibility and data transition between new and old system.
 * The whole device layer implemented with multi-thread and asynchronous callback. Each kind of device has an execution thread，and there was one status thread monitoring all execution threads, releasing resources and handling exception if necessary. Most of the interface were asynchronous, notifying the workflow through callback event.
 * Troubleshooting some technical issues, e.g., analysing JVM heapdump to find out memory leak; using `jmc`, `jvisualvm` to monitor JVM status, modifying device driver code to improve JNA call.
-* **Stacks:** **Java 8**, **Spring**, **Mave**, **Hudson**, **Findbugs**, **Xuggle**, **SWT**, **AWT**, **LINQ**, `H2`, `Activiti`, `Kafka`, `Sigar`, `SVN`, `JIRA`, `SQL Server`
+* **Stacks:** **Spring**, **Maven**, **Hudson**, **Findbugs**, **Xuggle**, **SWT**, **AWT**, **LINQ**, `H2`, `Activiti`, `Kafka`, `Sigar`, `SVN`, `JIRA`, `SQL Server`
 * **Conclusion:** This period gave me a comprehensive experience of a Java project, from design to trail run, I was part of it. But due to lots of business trip(130+ days a year) and overtime working climate, sadly, I left this company.

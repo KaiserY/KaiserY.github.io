@@ -13,7 +13,7 @@ date: 2015-12-25 16:44:40
 
 ## 期望发展方向
 * 偏后端的全栈工程师
-* 数据挖掘
+* 数据挖掘、机器学习
 
 ## 教育
 * 天津科技大学(TUST)
@@ -26,7 +26,7 @@ date: 2015-12-25 16:44:40
 * 英语: `CET6`
 * 日语: `N1`
 * 常用语言： `Java`、`Nodejs`、`PHP`、`C#`
-* 正在学习的语言：`Rust`、`Python`、`Go`
+* 正在学习的语言：`Scala`
 * 工作系统环境：`Fedora Workstation 23`、`Gnome 3`、`Oh My Zsh`
 * 常逛的网站：`Hacker News`、`InfoQ`、`TechCrunch`、`Engadget`、`phoronix`、`V2EX`、`36kr`
 * 会科学上网，以及通过代理下载、更新软件
@@ -35,10 +35,10 @@ date: 2015-12-25 16:44:40
 ### 天津南大通用数据技术股份有限公司 2015年4月 -
 #### 数据观（shujuguan.cn） 2015年4月 -
 * 互联网+数据分析产品(SaaS)，类似 SiSence 和 DataHero。敏捷团队，Scrum + Kanban。
-* 用户故事：后台服务（数据类型识别、第三方数据源支持、单元测试等）、从 SVN 迁移到 Git、制定敏捷的 Git branching model、Nodejs 百度位置查询服务。
+* 用户故事：后台服务（数据类型识别、第三方数据源支持、单元测试、机器学习等）、从 SVN 迁移到 Git、制定敏捷的 Git branching model、Nodejs 百度位置查询服务。
 * **程序栈：** **Java 8**、**Spring MVC**、**JUnit**、**Findbugs**、**Apache POI**、`jOOQ`、`ThinkPHP`、`OpenCenter`、`Wordpress`、**Express**、**Babel**、`Backbone`、`Highcharts`、`ECharts`、`Underscore`
 * **数据栈：** **MongoDB**、`GBase 8a`、`Redis`
-* **DevOps栈：** **GitLab**、**Asana**、**Jenkins**、**Maven**、`LAMP`、`Grunt`、**Gulp**、**Docker**
+* **DevOps栈：** **GitLab**、**Asana**、**Jenkins**、**Maven**、`LAMP`、`Grunt`、**Gulp**、**ELK**、**Docker**
 * **总结：** 未完待续
 
 ### 皖通科技研发中心(天津) 2012年11月 - 2015年4月
@@ -53,5 +53,5 @@ date: 2015-12-25 16:44:40
 * 参与到项目车道收费部分的设计和开发。主要负责设计和实现整个硬件接口，Windows 与 Linux 平台兼容性以及新老系统业务数据的转换。
 * 整个设备层采用多线程加步回调实现。每个设备对应一个执行线程，由一个状态线程监控所有设备执行线程的状态，适时回收资源和应对异常。大部分设备接口是异步的，通过回调发事件通知流程图。
 * 主要负责解决技术问题，例如分析 JVM 的 heapdump 查找内存泄漏；使用 jmc、jvisualvm 等工具监控 JVM 状态；修改设备驱动代码以方便 JNA 调用。
-* **技术栈：** **Java 8**、**Spring**、**Mave**、**Hudson**、**Findbugs**、**Xuggle**、**SWT**、**AWT**、**LINQ**、`H2`、`Activiti`、`Kafka`、`Sigar`、`SVN`、`JIRA`、`SQL Server`
+* **技术栈：** **Java 8**、**Spring**、**Maven**、**Hudson**、**Findbugs**、**Xuggle**、**SWT**、**AWT**、**LINQ**、`H2`、`Activiti`、`Kafka`、`Sigar`、`SVN`、`JIRA`、`SQL Server`
 * **总结：** 这是一次比较完整的 Java 项目经历，本人参与了从设计到试运行的阶段。不过因为出差太多（一年130多天）和加班文化，很遗憾的我离开了这家公司。
