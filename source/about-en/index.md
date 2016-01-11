@@ -23,23 +23,24 @@ date: 2015-12-26 15:36:51
 
 ## Summary
 * Quick Learner, Good at solving problems though `Baidu`/`Google`
-* English: `CET6`
-* Japanese: `N1`
-* Languages Mostly used : `Java`、`Nodejs`、`PHP`、`C#`
+* English: `CET6` Japanese: `N1`
+* Languages Mostly used : `Java`、`Node.js`、`PHP`、`C#`
 * Languages I am learning: `Scala`
 * Working system environment: `Fedora Workstation 23`, `Gnome 3`, `Oh My Zsh`
 * Mostly visited website: `Hacker News`, `InfoQ`, `TechCrunch`, `Engadget`, `phoronix`, `V2EX`, `36kr`
 * Accessing the web, download & update software through proxy
 
 ## Working experience
+**Bold** are stuffs familiar to me and ~~Strikethrough~~ are something we were not using any more.
 ### General Data Technology Co., Ltd, `2015 Apr` ~
 #### Shujuguan(shujuguan.cn), `2015 Apr` ~
-* Internet plus data analysis product(SaaS), which was similar to SiSence and DataHero. Agile Team, Scrum and Kanban.
-* **User Stories: ** backend service(data type recognition, third party datasource, unit test, machine learning, etc.), migrate from SVN to Git, scheme an agile Git branching model, Baidu location API service based on Nodejs.
-* **App Stacks:** **Spring MVC**, **JUnit**, **Findbugs**, **Apache POI**, **Spark**, `jOOQ`, `ThinkPHP`, `OpenCenter`, `Wordpress`, **Express**, **Babel**, `Backbone`, `Highcharts`, `ECharts`, `Underscore`
+* Internet plus data analysis product(SaaS), which aimed to be a competitor to `SiSence` and `DataHero`. Agile Team, Scrum and Kanban.
+* Agile Git branching model: Every `Sprint`(per 2 weeks), we created feature branch and maintenance branch from `master` branch, for merging new features and hotfix respectively.
+* **User Stories:** backend service(data type recognition, third party datasource support, unit test, machine learning, etc.), help our team migrate from SVN to Git, Baidu location API service based on Node.js.
+* **App Stacks:** **Spring MVC**, **JUnit**, **Findbugs**, **Apache POI**, **Spark**, `jOOQ`, `ActiveMQ`, `ThinkPHP`, `Guzzle`, ~~Discuz!~~, `OpenCenter`, `Wordpress`, **Express**, **Babel**, `TypeScript`, `Backbone`, `Highcharts`, ~~ECharts~~, `Underscore`
 * **Data Stacks:** **MongoDB**, `GBase 8a`, `Redis`
-* **DevOps Stacks:** **GitLab**, **Asana**, **Jenkins**, **Maven**, `LAMP`, `Grunt`, **Gulp**, **ELK**, **Docker**
-* **Conclusion:** To be continued
+* **DevOps Stacks:** **GitLab**, ~~SVN~~, **Asana**, **Jenkins**, ~~Ant~~, **Maven**, `LAMP`, `nginx`, `Grunt`, **Gulp**, **ELK**, **Docker**
+* **Conclusion:** This was my first in the Internet industry.
 
 ### ANHUI WANTONG TECHNOLOGY Co.,Ltd, Taijin Research Center, `2012 Nov` ~ `2015 Apr`
 #### ANHUI Expressway Toll Collection System, `2012 Nov` ~ `2014 Jan`

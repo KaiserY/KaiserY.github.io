@@ -23,23 +23,24 @@ date: 2015-12-25 16:44:40
 
 ## 简述
 * 善于学习，善于通过`Baidu`/`Google`解决问题
-* 英语: `CET6`
-* 日语: `N1`
-* 常用语言： `Java`、`Nodejs`、`PHP`、`C#`
+* 英语: `CET6` 日语: `N1`
+* 常用语言： `Java`、`Node.js`、`PHP`、`C#`
 * 正在学习的语言：`Scala`
 * 工作系统环境：`Fedora Workstation 23`、`Gnome 3`、`Oh My Zsh`
-* 常逛的网站：`Hacker News`、`InfoQ`、`TechCrunch`、`Engadget`、`phoronix`、`V2EX`、`36kr`
+* 常逛的网站：`Hacker News`、`InfoQ`、`TechCrunch`、`Engadget`、`phoronix`、`V2EX`、`36kr`、`Medium`
 * 会科学上网，以及通过代理下载、更新软件
 
 ## 工作经历
+**粗体** 为本人熟悉的技术，~~删除线~~ 为被放弃的技术
 ### 天津南大通用数据技术股份有限公司 2015年4月 -
 #### 数据观（shujuguan.cn） 2015年4月 -
-* 互联网+数据分析产品(SaaS)，类似 SiSence 和 DataHero。敏捷团队，Scrum + Kanban。
-* 用户故事：后台服务（数据类型识别、第三方数据源支持、单元测试、机器学习等）、从 SVN 迁移到 Git、制定敏捷的 Git branching model、Nodejs 百度位置查询服务。
-* **程序栈：** **Java 8**、**Spring MVC**、**JUnit**、**Findbugs**、**Apache POI**、`jOOQ`、`ThinkPHP`、`OpenCenter`、`Wordpress`、**Express**、**Babel**、`Backbone`、`Highcharts`、`ECharts`、`Underscore`
+* 互联网+数据分析产品（SaaS），意在与`SiSence`和`DataHero`等产品竞争。敏捷团队，Scrum + Kanban。
+* 敏捷的 Git branching model：以`Sprint`为周期（每2周），从`master`分支新建功能分支和维护分支，分别用于合并新功能和 hotfix。
+* 用户故事：后台服务（数据类型识别、第三方数据源支持、单元测试、机器学习等）、帮助团队从 SVN 迁移到 Git、Node.js 百度位置查询服务。
+* **程序栈：** **Java 8**、**Spring MVC**、**JUnit**、**Findbugs**、**Apache POI**、**Spark**、`jOOQ`、`ActiveMQ `、`ThinkPHP`、`Guzzle`、~~Discuz!~~、`OpenCenter`、`Wordpress`、**Express**、**Babel**、`TypeScript`、`Backbone`、`Highcharts`、~~ECharts~~、`Underscore`
 * **数据栈：** **MongoDB**、`GBase 8a`、`Redis`
-* **DevOps栈：** **GitLab**、**Asana**、**Jenkins**、**Maven**、`LAMP`、`Grunt`、**Gulp**、**ELK**、**Docker**
-* **总结：** 未完待续
+* **DevOps 栈：** **GitLab**、~~SVN~~、**Asana**、**Jenkins**、~~Ant~~、**Maven**、`LAMP`、`nginx`、~~Grunt~~、**Gulp**、**ELK**、**Docker**
+* **总结：** 本人进入互联网行业的第一份工作
 
 ### 皖通科技研发中心(天津) 2012年11月 - 2015年4月
 #### 安徽省高速公路收费系统 2012年11月 - 2014年1月
