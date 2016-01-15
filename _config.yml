@@ -70,6 +70,13 @@ pagination_dir: page
 # theme: landscape
 theme: next-0.4.5.2
 
+plugins:
+  - hexo-tag-emojis
+
+# hexo-tag-emojis plugin configuration
+emojis:
+  image_dir: images/emojis
+
 # Creative Commons 4.0 International License.
 # http://creativecommons.org/
 # Available: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero
