@@ -16,7 +16,7 @@ categories:
 
 ## 创建 Cloud 9 workspace
 
-* template 记得选 Node.js。它自带 nvm，这样你就不用装 node 了。
+* template 记得选 Node.js。它自带 nvm，这样就不用装 node 了。
 * 如果你使用 Git 的话也可以直接写上，它会自动帮你 Clone。
 
 ## 配置 GitBook 环境
@@ -30,6 +30,8 @@ sudo -v && wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/mas
 ### 安装中文字体
 
 Cloud 9 的系统默认木有中文字体的样子，这里我们安装一个文泉驿微黑
+
+> 实践发现不同字体对最终生成的 pdf 文件大小有影响，如果你发现生成的 pdf 过大，尝试换个字体看看。
 
 ```text
 sudo apt-get update
