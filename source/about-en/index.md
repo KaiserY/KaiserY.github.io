@@ -3,31 +3,27 @@ date: 2015-12-26 15:36:51
 ---
 
 ## Personal
-| Name | Gender | Address  | Home |
-|:----:|:---:|:------:|:----:|
-| 岳洋 | Male | Tianjin | Hubei |
-
-* Mobile: `MTM4MjEwNjc0MDc=`
-* Email: `eXVleWFuZy5mYW5xaWFuZ0BnbWFpbC5jb20=` `OTk1MTM3MzAyQHFxLmNvbQ==`
-* GitHub: https://github.com/KaiserY
+| Name | Gender | Address  | Home | Mobile | Email |
+|:----:|:---:|:------:|:----:|:----:|:----:|
+| 岳洋 | Male | Tianjin | Hubei | MTM4MjEwNjc0MDc= | OTk1MTM3MzAyQHFxLmNvbQ== |
 
 # Expecting position
 * Full Stack Developer(more backend)
 * Data mining, machine learning
 
 ## Education
-### Taijin University of Science & Technology
-* International College, Bachelor of CSIE
-* The First Prize Scholarship at 1st/2nd year
-* 2009 ~ 2013
+* Taijin University of Science & Technology
+  * International College, 2009 ~ 2013, Bachelor of CSIE
+  * The First Prize Scholarship at 1st/2nd year
 
 ## Summary
 * Quick Learner, Good at solving problems though `Baidu` / `Google`
 * English: `CET6` Japanese: `N1`
 * Languages Mostly used : `Java`、`Node.js`、`PHP`、`C#`
 * Languages I am learning: `Scala`
-* Working system environment: `Fedora Workstation 23`, `Gnome 3`, `Oh My Zsh`
+* Working system environment: `Fedora Workstation 23`, `Gnome 3`, `Oh My Zsh`, `IDEA`, `Atom`
 * Mostly visited website: `Hacker News`, `InfoQ`, `TechCrunch`, `Engadget`, `phoronix`, `V2EX`, `36kr`, `Medium`
+* `GitHub`: https://github.com/KaiserY
 * Accessing the web, download & update software through proxy
 
 ## Working experience

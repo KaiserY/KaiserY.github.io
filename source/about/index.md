@@ -3,31 +3,27 @@ date: 2015-12-25 16:44:40
 ---
 
 ## 个人信息
-| 姓名 | 性别| 所在地 | 老家 |
-|:----:|:---:|:------:|:----:|
-| 岳洋 | 男 | 天津 | 湖北 |
-
-* 手机: `MTM4MjEwNjc0MDc=`
-* 邮箱: `eXVleWFuZy5mYW5xaWFuZ0BnbWFpbC5jb20=`、`OTk1MTM3MzAyQHFxLmNvbQ==`
-* `GitHub`: https://github.com/KaiserY
+| 姓名 | 性别 | 所在地 | 老家 | 手机 | 邮箱 |
+|:----:|:---:|:------:|:----:|:----:|:----:|
+| 岳洋 | 男 | 天津 | 湖北 | MTM4MjEwNjc0MDc= | OTk1MTM3MzAyQHFxLmNvbQ== |
 
 ## 期望发展方向
 * 偏后端的全栈工程师
 * 数据挖掘、机器学习
 
 ## 教育
-* 天津科技大学(TUST)
-  * 国际学院 计算机科学与技术专业 本科
-  * 大一大二获校级一等奖学金
-  * 2009-2013
+  * 天津科技大学(TUST)
+    * 国际学院 计算机科学与技术专业 2009 - 2013 本科
+    * 大一大二获校级一等奖学金
 
 ## 简述
 * 善于学习，善于通过`Baidu` / `Google`解决问题
 * 英语: `CET6` 日语: `N1`
 * 常用语言： `Java`、`Node.js`、`PHP`、`C#`
 * 正在学习的语言：`Scala`
-* 工作系统环境：`Fedora Workstation 23`、`Gnome 3`、`Oh My Zsh`
+* 工作系统环境：`Fedora Workstation 23`、`Gnome 3`、`Oh My Zsh`、`IDEA`、`Atom`
 * 常逛的网站：`Hacker News`、`InfoQ`、`TechCrunch`、`Engadget`、`phoronix`、`V2EX`、`36kr`、`Medium`
+* `GitHub`: https://github.com/KaiserY
 * 会科学上网，以及通过代理下载、更新软件
 
 ## 工作经历
@@ -38,7 +34,7 @@ date: 2015-12-25 16:44:40
 * 用户故事：
   * Spring MVC 后台服务：数据类型 & 格式识别、第三方数据源支持（OAuth 2.0）、单元测试、机器学习。
   * 帮助团队从 SVN 迁移到 Git。敏捷的 Git branching model：以`Sprint`为周期（每2周）的集成分支；Git submodule。
-  * 基于 Express 的百度位置查询服务。CORS、node cluster、 MongoDB 缓存。
+  * 基于 Express 的百度位置查询服务。CORS、node cluster、MongoDB 缓存。
   * 基于 ELK 的系统日志 & 用户行为收集系统。
 * **程序栈：** **Spring MVC**、**JUnit**、**Findbugs**、**Apache POI**、`Spark`、`Morphia`、`Logback`、`jOOQ`、`ActiveMQ `、`ThinkPHP`、`Guzzle`、~~Discuz!~~、`OpenCenter`、`Wordpress`、**Express**、**Babel**、**Jasmine**、`TypeScript`、`Backbone`、`Highcharts`、~~ECharts~~、`Underscore`
 * **数据栈：** **MongoDB**、`GBase 8a`、`Redis`、`MySQL`
