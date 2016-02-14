@@ -7,30 +7,29 @@ date: 2015-12-26 15:36:51
 |:----:|:---:|:------:|:----:|:----:|:----:|
 | 岳洋 | Male | Tianjin | Hubei | MTM4MjEwNjc0MDc= | OTk1MTM3MzAyQHFxLmNvbQ== |
 
-# Expecting position
-* Full Stack Developer(more backend)
-* Data mining, machine learning
+## Summary
+* `GitHub`: https://github.com/KaiserY
+* English: `CET6` Japanese: `N1`
+* Languages Mostly used : `Java`、`Node.js`、`PHP`、`C#`
+* Languages I am learning: `Scala`
+* Working system environment: `Fedora Workstation 23`, `Gnome 3`, `Oh My Zsh`, `IDEA`, `Atom`
+* Mostly visited website: `Hacker News`, `InfoQ`, `TechCrunch`, `Engadget`, `phoronix`, `V2EX`, `36kr`, `Medium`
+* Accessing the web through proxy, good at solving problems though `Baidu` / `Google`
 
 ## Education
 * Taijin University of Science & Technology
   * International College, 2009 ~ 2013, Bachelor of CSIE
   * The First Prize Scholarship at 1st/2nd year
 
-## Summary
-* Quick Learner, Good at solving problems though `Baidu` / `Google`
-* English: `CET6` Japanese: `N1`
-* Languages Mostly used : `Java`、`Node.js`、`PHP`、`C#`
-* Languages I am learning: `Scala`
-* Working system environment: `Fedora Workstation 23`, `Gnome 3`, `Oh My Zsh`, `IDEA`, `Atom`
-* Mostly visited website: `Hacker News`, `InfoQ`, `TechCrunch`, `Engadget`, `phoronix`, `V2EX`, `36kr`, `Medium`
-* `GitHub`: https://github.com/KaiserY
-* Accessing the web, download & update software through proxy
+# Expecting position
+* Full Stack Developer(more backend)
+* Data mining, machine learning
 
 ## Working experience
 **Bold** are stuffs familiar to me and ~~Strikethrough~~ are something we were not using any more.
 ### General Data Technology Co., Ltd, `2015 Apr` ~
 #### Shujuguan(shujuguan.cn), `2015 Apr` ~
-* Internet plus data analysis product(SaaS), which aimed to be a competitor to `SiSence` and `DataHero`. Agile Team, Scrum and Kanban.
+* Internet plus data visualization analysis product(SaaS), which aimed to be a competitor to `SiSence` and `DataHero`. Agile Team, Scrum and Kanban.
 * **User Stories:**
   * backend service: data type & format recognition, third party data source support(OAuth 2.0), unit test, machine learning.
   * help our team migrate from SVN to Git. Agile Git branching model: integration branches every Sprint(per 2 weeks); Git submodule.

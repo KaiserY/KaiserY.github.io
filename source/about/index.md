@@ -7,30 +7,29 @@ date: 2015-12-25 16:44:40
 |:----:|:---:|:------:|:----:|:----:|:----:|
 | 岳洋 | 男 | 天津 | 湖北 | MTM4MjEwNjc0MDc= | OTk1MTM3MzAyQHFxLmNvbQ== |
 
-## 期望发展方向
-* 偏后端的全栈工程师
-* 数据挖掘、机器学习
-
-## 教育
-  * 天津科技大学(TUST)
-    * 国际学院 计算机科学与技术专业 2009 - 2013 本科
-    * 大一大二获校级一等奖学金
-
 ## 简述
-* 善于学习，善于通过`Baidu` / `Google`解决问题
+* `GitHub`: https://github.com/KaiserY
 * 英语: `CET6` 日语: `N1`
 * 常用语言： `Java`、`Node.js`、`PHP`、`C#`
 * 正在学习的语言：`Scala`
 * 工作系统环境：`Fedora Workstation 23`、`Gnome 3`、`Oh My Zsh`、`IDEA`、`Atom`
 * 常逛的网站：`Hacker News`、`InfoQ`、`TechCrunch`、`Engadget`、`phoronix`、`V2EX`、`36kr`、`Medium`
-* `GitHub`: https://github.com/KaiserY
-* 会科学上网，以及通过代理下载、更新软件
+* 会科学上网，善于通过`Baidu` / `Google`解决问题
+
+## 教育
+* 天津科技大学(TUST)
+  * 国际学院 计算机科学与技术专业 2009 - 2013 本科
+  * 大一大二获校级一等奖学金
+
+## 期望发展方向
+* 偏后端的全栈工程师
+* 数据挖掘、机器学习
 
 ## 工作经历
 **粗体** 为本人熟悉的技术，~~删除线~~ 为不再使用的技术
 ### 天津南大通用数据技术股份有限公司 2015 年 4 月 -
 #### 数据观（shujuguan.cn） 2015 年 4 月 -
-* 互联网+数据分析产品（SaaS），意在与`SiSence`和`DataHero`等产品竞争。敏捷团队，Scrum + Kanban。
+* 互联网+数据可视化分析产品（SaaS），意在与`SiSence`和`DataHero`等产品竞争。敏捷团队，Scrum + Kanban。
 * 用户故事：
   * Spring MVC 后台服务：数据类型 & 格式识别、第三方数据源支持（OAuth 2.0）、单元测试、机器学习。
   * 帮助团队从 SVN 迁移到 Git。敏捷的 Git branching model：以`Sprint`为周期（每2周）的集成分支；Git submodule。
