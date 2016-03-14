@@ -3,22 +3,22 @@ date: 2015-12-26 15:36:51
 ---
 
 ## Personal
-| Name | Gender | Address  | Home | Mobile | Email |
-|:----:|:---:|:------:|:----:|:----:|:----:|
-| 岳洋 | Male | Tianjin | Hubei | MTM4MjEwNjc0MDc= | OTk1MTM3MzAyQHFxLmNvbQ== |
+| Name | Gender |  Year of birth | Address | Home | Mobile | Email |
+|:----:|:------:|:--------------:|:-------:|:----:|:------:|:-----:|
+| 岳洋 | Male | 1991 | Tianjin | Hubei | MTM4MjEwNjc0MDc= | OTk1MTM3MzAyQHFxLmNvbQ== |
 
 ## Summary
 * `GitHub`: https://github.com/KaiserY
 * English: `CET6` Japanese: `N1`
 * Languages Mostly used : `Java`、`Node.js`、`PHP`、`C#`
-* Languages I am learning: `Scala`
+* Languages I am learning: `Scala`、`Python`
 * Working system environment: `Fedora Workstation 23`, `Gnome 3`, `Oh My Zsh`, `IDEA`, `Atom`
 * Mostly visited website: `Hacker News`, `InfoQ`, `TechCrunch`, `Engadget`, `phoronix`, `V2EX`, `36kr`, `Medium`
 * Accessing the web through proxy, good at solving problems though `Baidu` / `Google`
 
 ## Education
 * Taijin University of Science & Technology
-  * International College, 2009 ~ 2013, Bachelor of CSIE
+  * International College, `2009 ~ 2013`, Bachelor of CSIE
   * The First Prize Scholarship at 1st/2nd year
 
 # Expecting position
@@ -26,18 +26,20 @@ date: 2015-12-26 15:36:51
 * Data mining, machine learning
 
 ## Working experience
-**Bold** are stuffs familiar to me and ~~Strikethrough~~ are something we were not using any more.
+
+> Stacks below are project stacks, **Bold** are stuffs familiar to me and ~~Strikethrough~~ are something we were not using any more.
+
 ### General Data Technology Co., Ltd, `2015 Apr` ~
 #### Shujuguan(shujuguan.cn), `2015 Apr` ~
 * Internet plus data visualization analysis product(SaaS), which aimed to be a competitor to `SiSence` and `DataHero`. Agile Team, Scrum and Kanban.
 * **User Stories:**
   * backend service: data type & format recognition, third party data source support(OAuth 2.0), unit test, machine learning.
   * help our team migrate from SVN to Git. Agile Git branching model: integration branches every Sprint(per 2 weeks); Git submodule.
-  * Baidu location API service based on Express. CORS, node cluster, MongoDB cache.
+  * Baidu location API service & chart recommendation service based on Express. CORS, node cluster, MongoDB cache.
   * ELK based system log & user behavior collection system.
-* **App Stacks:** **Spring MVC**, **JUnit**, **Findbugs**, **Apache POI**, `Spark`, `Morphia`, `Logback`, `jOOQ`, `ActiveMQ`, `ThinkPHP`, `Guzzle`, ~~Discuz!~~, `OpenCenter`, `Wordpress`, **Express**, **Babel**, **Jasmine**, `TypeScript`, `Backbone`, `Highcharts`, ~~ECharts~~, `Underscore`
+* **App Stacks:** **Spring MVC**, **JUnit**, **JMeter**, **Findbugs**, **Apache POI**, `Spark`, `Morphia`, `Logback`, `jOOQ`, `ActiveMQ`, `ThinkPHP`, ~~Discuz!~~, `OpenCenter`, `Wordpress`, **Express**, **Babel**, **Jasmine**, `TypeScript`, `Backbone`, `Highcharts`, ~~ECharts~~, `Underscore`
 * **Data Stacks:** **MongoDB**, `GBase 8a`, `Redis`, `MySQL`
-* **DevOps Stacks:** **GitLab**, ~~SVN~~, **Asana**, **Jenkins**, ~~Ant~~, **Maven**, `LAMP`, `nginx`, ~~Grunt~~, **Gulp**, **ELK**, **Docker**
+* **DevOps Stacks:** **GitLab**, ~~SVN~~, **Asana**, **Jenkins**, ~~Ant~~, **Maven**, `LAMP`, `nginx`, ~~Grunt~~, **Gulp**, **ELK**, **Docker**, `aliyun`
 * **Conclusion:** This was my first time working in an agile internet team. And I have tried lots of teches and system architecture.
 
 ### ANHUI WANTONG TECHNOLOGY Co.,Ltd, Taijin Research Center, `2012 Nov` ~ `2015 Apr`
