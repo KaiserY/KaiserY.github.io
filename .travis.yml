@@ -1,7 +1,7 @@
 language: node_js
 
 node_js:
-- '5.8.0'
+- '4.4.0'
 
 branches:
   only:
@@ -16,6 +16,7 @@ before_install:
 - cp key/ssh_config ~/.ssh/config
 - git config --global user.name KaiserY
 - git config --global user.email yueyang.fanqiang@gmail.com
+- rm -rf .deploy_git
 
 install:
 - npm install hexo-cli -g
