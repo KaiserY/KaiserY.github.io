@@ -72,7 +72,6 @@ pagination_dir: page
 theme: next
 
 plugins:
-  - hexo-tag-emojis
 
 # hexo-tag-emojis plugin configuration
 emojis:
