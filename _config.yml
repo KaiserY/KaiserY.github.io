@@ -69,7 +69,8 @@ pagination_dir: page
 ## Themes: http://hexo.io/themes/
 # theme: landscape
 # theme: next-0.4.5.2
-theme: next
+# theme: next
+theme: next-5.0.0
 
 plugins:
 
@@ -95,7 +96,7 @@ marked:
 # Social links
 social:
   github: https://github.com/KaiserY
-  linkedin: https://cn.linkedin.com/in/洋-岳-978046113
+  duolingo: https://www.duolingo.com/KaiserY
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
