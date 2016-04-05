@@ -1,0 +1,653 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Spark,机器学习,朴素贝叶斯," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="KaiserY Hub" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="这里的数据分类，是指给出一个字符串格式的数据，需要判断它是一个数字、日期、IP 地址等等，还是只是普通的文本，这样一个问题。本来这类问题有正则表达式这样的传统且有效的解决方案。不过实践过程中会发现，有时正则表达式的效率会有问题：特别是数据的类别很多的时候，最坏的情况可能会把所有的正则表达式都跑一边；即使采用多级正则匹配也会有严重影响相应时间的时候。
+解决方案？简单的说还木有发现。不过本文在这里提供">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习 Spark ML：朴素贝叶斯与数据分类">
+<meta property="og:url" content="http://kaisery.github.io/2016/01/25/学习 Spark ML：朴素贝叶斯与数据分类/index.html">
+<meta property="og:site_name" content="KaiserY Hub">
+<meta property="og:description" content="这里的数据分类，是指给出一个字符串格式的数据，需要判断它是一个数字、日期、IP 地址等等，还是只是普通的文本，这样一个问题。本来这类问题有正则表达式这样的传统且有效的解决方案。不过实践过程中会发现，有时正则表达式的效率会有问题：特别是数据的类别很多的时候，最坏的情况可能会把所有的正则表达式都跑一边；即使采用多级正则匹配也会有严重影响相应时间的时候。
+解决方案？简单的说还木有发现。不过本文在这里提供">
+<meta property="og:updated_time" content="2016-04-05T14:53:25.186Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学习 Spark ML：朴素贝叶斯与数据分类">
+<meta name="twitter:description" content="这里的数据分类，是指给出一个字符串格式的数据，需要判断它是一个数字、日期、IP 地址等等，还是只是普通的文本，这样一个问题。本来这类问题有正则表达式这样的传统且有效的解决方案。不过实践过程中会发现，有时正则表达式的效率会有问题：特别是数据的类别很多的时候，最坏的情况可能会把所有的正则表达式都跑一边；即使采用多级正则匹配也会有严重影响相应时间的时候。
+解决方案？简单的说还木有发现。不过本文在这里提供">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 学习 Spark ML：朴素贝叶斯与数据分类 | KaiserY Hub </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">KaiserY Hub</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about-en">
+          <a href="/about-en" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                学习 Spark ML：朴素贝叶斯与数据分类
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-01-25T22:41:34+00:00" content="2016-01-25">
+              2016-01-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/技术/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这里的数据分类，是指给出一个字符串格式的数据，需要判断它是一个数字、日期、IP 地址等等，还是只是普通的文本，这样一个问题。本来这类问题有正则表达式这样的传统且有效的解决方案。不过实践过程中会发现，有时正则表达式的效率会有问题：特别是数据的类别很多的时候，最坏的情况可能会把所有的正则表达式都跑一边；即使采用多级正则匹配也会有严重影响相应时间的时候。</p>
+<p>解决方案？简单的说还木有发现。不过本文在这里提供一个采用机器学习分类算法的数据分类实践，希望能起到抛砖引玉的作用。</p>
+<blockquote>
+<p>如果你觉得 show me the code 更给力的话，本文使用的项目代码：<a href="https://github.com/KaiserY/learn-spark-ml" target="_blank" rel="external">https://github.com/KaiserY/learn-spark-ml</a></p>
+</blockquote>
+<h2 id="选型"><a href="#选型" class="headerlink" title="选型"></a>选型</h2><p>首先我们要解决的问题：</p>
+<ul>
+<li>尽可能准确的识别数据的分类</li>
+<li>同时能满足实时性要求（尽可能快且时间尽可能恒定）</li>
+<li>同时支持尽可能多的数据类别</li>
+<li>能提供 REST 接口，方便以微服务的形式与现有系统集成</li>
+</ul>
+<p>这里我们选择了 Spark 的机器学习库 MLlib。算法则是经典的朴素贝叶斯（multinomial naive Bayes）。理由如下：</p>
+<ul>
+<li>虽然朴素贝叶斯是个简单的算法，但实践中它的准确性却异常的好，足见统计规律的强大</li>
+<li>Spark 作为分布式内存计算框架，能提供一定的实时计算能力；同时朴素贝叶斯在分类算法中也算是灰常快的了，并且时间恒定</li>
+<li>朴素贝叶斯支持非线性（多类别）分类</li>
+<li>Spark + Spray 可以轻松提供 REST 服务。这里甚至有现成的轮子 <a href="https://prediction.io/" target="_blank" rel="external">PredictionIO</a></li>
+</ul>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>因为 Spark 采用 Scala 编写，这里也采用 Scala 作为编程语言。</p>
+<h3 id="数据类别"><a href="#数据类别" class="headerlink" title="数据类别"></a>数据类别</h3><p>以下是我们此次要识别的数据类别的枚举：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">DataType</span> <span class="keyword">extends</span> <span class="title">Enumeration</span> </span>&#123;</span><br><span class="line">  <span class="keyword">val</span> <span class="type">TEXT</span> = <span class="type">Value</span>(<span class="number">0</span>, <span class="string">"text"</span>)</span><br><span class="line">  <span class="keyword">val</span> <span class="type">INTEGER</span> = <span class="type">Value</span>(<span class="string">"integer"</span>)</span><br><span class="line">  <span class="keyword">val</span> <span class="type">DOUBLE</span> = <span class="type">Value</span>(<span class="string">"double"</span>)</span><br><span class="line">  <span class="keyword">val</span> <span class="type">EMAIL</span> = <span class="type">Value</span>(<span class="string">"email"</span>)</span><br><span class="line">  <span class="keyword">val</span> <span class="type">FAKE_EMAIL</span> = <span class="type">Value</span>(<span class="string">"fake email"</span>)</span><br><span class="line">  <span class="keyword">val</span> <span class="type">POST_CODE</span> = <span class="type">Value</span>(<span class="string">"post code"</span>)</span><br><span class="line">  <span class="keyword">val</span> <span class="type">IP_V4</span> = <span class="type">Value</span>(<span class="string">"ipv4"</span>)</span><br><span class="line">  <span class="keyword">val</span> <span class="type">FAKE_IP_V4</span> = <span class="type">Value</span>(<span class="string">"fake ipv4"</span>)</span><br><span class="line">  <span class="keyword">val</span> <span class="type">UUID</span> = <span class="type">Value</span>(<span class="string">"uuid"</span>)</span><br><span class="line">  <span class="keyword">val</span> <span class="type">DATE</span> = <span class="type">Value</span>(<span class="string">"date"</span>)</span><br><span class="line">  <span class="keyword">val</span> <span class="type">TIME</span> = <span class="type">Value</span>(<span class="string">"time"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于<code>EMAIL</code>和<code>FAKE_EMAIL</code>：实践发现，朴素贝叶斯算法在分类特征明显的情况下准确率会大大提高。区分真邮箱与假邮箱是为了尽可能不把类似<code>abcd3f@12d</code>这样的并不是真正的邮箱的数据错分为邮箱。</p>
+<h3 id="训练数据"><a href="#训练数据" class="headerlink" title="训练数据"></a>训练数据</h3><p>这里我们随机生成了大部分训练数据，像邮编、Email之类的则从文件读取。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">DataWithLabel</span>(<span class="params">label: <span class="type">Double</span>, content: <span class="type">String</span></span>)</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">DataTypeSeq</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> sampleCount = <span class="number">10000</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">integerSeq</span></span>(): <span class="type">Seq</span>[<span class="type">DataWithLabel</span>] = &#123;</span><br><span class="line">    <span class="type">Seq</span>.fill(sampleCount) &#123;</span><br><span class="line">      <span class="keyword">val</span> label = <span class="type">DataType</span>.<span class="type">INTEGER</span>.id.toDouble</span><br><span class="line">      <span class="keyword">val</span> content = scala.util.<span class="type">Random</span>.nextInt().toString</span><br><span class="line">      <span class="type">DataWithLabel</span>(label, content)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">emailSeq</span></span>(): <span class="type">Seq</span>[<span class="type">DataWithLabel</span>] = &#123;</span><br><span class="line">    <span class="type">Source</span>.fromInputStream(<span class="keyword">this</span>.getClass.getResourceAsStream(<span class="string">"/email.csv"</span>)).getLines().map(line =&gt; &#123;</span><br><span class="line">      <span class="keyword">val</span> label = <span class="type">DataType</span>.<span class="type">EMAIL</span>.id.toDouble</span><br><span class="line">      <span class="keyword">val</span> content = line</span><br><span class="line">      <span class="type">DataWithLabel</span>(label, content)</span><br><span class="line">    &#125;).toSeq</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">timeSeq_1</span></span>(): <span class="type">Seq</span>[<span class="type">DataWithLabel</span>] = &#123;</span><br><span class="line">    <span class="type">Seq</span>.fill(sampleCount) &#123;</span><br><span class="line">      <span class="keyword">val</span> label = <span class="type">DataType</span>.<span class="type">TIME</span>.id.toDouble</span><br><span class="line">      <span class="keyword">val</span> content = <span class="keyword">new</span> <span class="type">LocalTime</span>(</span><br><span class="line">        scala.util.<span class="type">Random</span>.nextInt(<span class="number">23</span>) + <span class="number">1</span>,</span><br><span class="line">        scala.util.<span class="type">Random</span>.nextInt(<span class="number">59</span>) + <span class="number">1</span>,</span><br><span class="line">        scala.util.<span class="type">Random</span>.nextInt(<span class="number">59</span>) + <span class="number">1</span></span><br><span class="line">      ).toString(<span class="string">"hh时mm分ss秒"</span>)</span><br><span class="line">      <span class="type">DataWithLabel</span>(label, content)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之后我们我们生成<code>RDD</code>：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">DataTypeRDD</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">makeRDD</span></span>(sparkContext: <span class="type">SparkContext</span>): <span class="type">RDD</span>[<span class="type">DataWithLabel</span>] = &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> integerRDD = sparkContext.parallelize(<span class="type">DataTypeSeq</span>.integerSeq())</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> timeRDD_1 = sparkContext.parallelize(<span class="type">DataTypeSeq</span>.timeSeq_1())</span><br><span class="line"></span><br><span class="line">    sparkContext.emptyRDD[<span class="type">DataWithLabel</span>]</span><br><span class="line">      .union(integerRDD)</span><br><span class="line">      ...</span><br><span class="line">      .union(timeRDD_1)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Spark 1.6.0 之后提供了 Dataset API。不过支持程度不够完善，并不能对集合或自定义类型自动生成<code>encoder</code>，使用效果并没有<code>RDD</code>好，不过我们可以尝试一下：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">DataTypeDataset</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">makeDataset</span></span>(sqlContext: <span class="type">SQLContext</span>): <span class="type">Dataset</span>[<span class="type">DataWithLabel</span>] = &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">import</span> sqlContext.implicits._</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> integerDataset = sqlContext.createDataset(<span class="type">DataTypeSeq</span>.integerSeq())</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> timeDataset_1 = sqlContext.createDataset(<span class="type">DataTypeSeq</span>.timeSeq_1())</span><br><span class="line"></span><br><span class="line">    integerDataset</span><br><span class="line">      .union(integerDataset)</span><br><span class="line">      ...</span><br><span class="line">      .union(timeDataset_1)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>生成最终的<code>DataFrame</code>。这里我们用<code>75%</code>的样本数据进行训练，<code>25%</code>的数据用于测试。</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> sparkConf = <span class="keyword">new</span> <span class="type">SparkConf</span>()</span><br><span class="line">  .setAppName(<span class="string">"Data Type Training"</span>)</span><br><span class="line">  .setMaster(<span class="string">"local"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> sparkContext = <span class="keyword">new</span> <span class="type">SparkContext</span>(sparkConf)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> sqlContext = <span class="keyword">new</span> <span class="type">SQLContext</span>(sparkContext)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Dataset API</span></span><br><span class="line"><span class="comment">//    val trainingDataset = DataTypeDataset.makeDataset(sqlContext)</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//    val dataFrame = trainingDataset.toDF().map(r =&gt; &#123;</span></span><br><span class="line"><span class="comment">//      (r.getDouble(0), r.getString(1), Util.string2Vector(r.getString(1), 100))</span></span><br><span class="line"><span class="comment">//    &#125;).toDF("label", "content", "features")</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> trainingRDD = <span class="type">DataTypeRDD</span>.makeRDD(sparkContext)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> dataFrame = sqlContext.createDataFrame(trainingRDD.map(d =&gt; &#123;</span><br><span class="line">  (d.label, d.content, <span class="type">Util</span>.string2Vector(d.content, <span class="number">100</span>))</span><br><span class="line">&#125;)).toDF(<span class="string">"label"</span>, <span class="string">"content"</span>, <span class="string">"features"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> splitsDataFrame = dataFrame.randomSplit(<span class="type">Array</span>(<span class="number">0.75</span>, <span class="number">0.25</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> trainingDataFrame = splitsDataFrame(<span class="number">0</span>)</span><br><span class="line"><span class="keyword">val</span> testDataFrame = splitsDataFrame(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="特征抽取"><a href="#特征抽取" class="headerlink" title="特征抽取"></a>特征抽取</h2><p>特征抽取函数如下：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">Util</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">string2Vector</span></span>(text: <span class="type">String</span>, maxLength: <span class="type">Int</span>): <span class="type">Vector</span> = &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> limit = <span class="keyword">if</span> (text.length &gt; maxLength) maxLength <span class="keyword">else</span> text.length</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> maxCount = maxLength + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> unicodePostionFeatureCount = <span class="number">256</span> * <span class="number">2</span> * maxLength</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> unicodeNumberFeatureCount = <span class="type">Features</span>.maxId * maxCount</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> featureIndex, alphabet, number, dot, minus, at, colon = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> featuresMap = <span class="keyword">new</span> mutable.<span class="type">HashMap</span>[<span class="type">Int</span>, <span class="type">Double</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> featureText = text.substring(<span class="number">0</span>, limit)</span><br><span class="line"></span><br><span class="line">    featureText.getBytes(<span class="string">"Unicode"</span>).drop(<span class="number">2</span>).foreach(byte =&gt; &#123;</span><br><span class="line">      <span class="keyword">val</span> value = byte &amp; <span class="number">0xFF</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">val</span> index = featureIndex</span><br><span class="line"></span><br><span class="line">      featureIndex += <span class="number">256</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      featuresMap += index + value -&gt; <span class="number">5.0</span></span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    featureText.foreach(&#123;</span><br><span class="line">      <span class="keyword">case</span> char <span class="keyword">if</span> '<span class="number">0</span>' until '<span class="number">9</span>' contains char =&gt; number += <span class="number">1</span></span><br><span class="line">      <span class="keyword">case</span> char <span class="keyword">if</span> 'a' until 'z' contains char =&gt; alphabet += <span class="number">1</span></span><br><span class="line">      <span class="keyword">case</span> char <span class="keyword">if</span> '<span class="type">A</span>' until '<span class="type">Z</span>' contains char =&gt; alphabet += <span class="number">1</span></span><br><span class="line">      <span class="keyword">case</span> '.' =&gt; dot += <span class="number">1</span></span><br><span class="line">      <span class="keyword">case</span> '-' =&gt; minus += <span class="number">1</span></span><br><span class="line">      <span class="keyword">case</span> '@' =&gt; at += <span class="number">1</span></span><br><span class="line">      <span class="keyword">case</span> ':' =&gt; colon += <span class="number">1</span></span><br><span class="line">      <span class="keyword">case</span> _ =&gt;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    featureIndex = unicodePostionFeatureCount</span><br><span class="line"></span><br><span class="line">    featuresMap += featureIndex + <span class="type">Features</span>.<span class="type">NUMBER</span>.id * maxCount + number -&gt; <span class="number">10.0</span></span><br><span class="line">    featuresMap += featureIndex + <span class="type">Features</span>.<span class="type">ALPHABET</span>.id * maxCount + alphabet -&gt; <span class="number">10.0</span></span><br><span class="line">    featuresMap += featureIndex + <span class="type">Features</span>.<span class="type">DOT</span>.id * maxCount + dot -&gt; <span class="number">20.0</span></span><br><span class="line">    featuresMap += featureIndex + <span class="type">Features</span>.<span class="type">MINUS</span>.id * maxCount + minus -&gt; <span class="number">20.0</span></span><br><span class="line">    featuresMap += featureIndex + <span class="type">Features</span>.<span class="type">AT</span>.id * maxCount + at -&gt; <span class="number">20.0</span></span><br><span class="line">    featuresMap += featureIndex + <span class="type">Features</span>.<span class="type">COLON</span>.id * maxCount + colon -&gt; <span class="number">20.0</span></span><br><span class="line"></span><br><span class="line">    <span class="type">Vectors</span>.sparse(unicodePostionFeatureCount + unicodeNumberFeatureCount, featuresMap.toSeq)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>原理：我们首先取字符串数据的前 N 个字符，将其转化为 Unicode 字节数组（因为 Java 字符串转 Unicode 会带有 BOM，所以我们去掉头两个字节）。然后对应每个字节的值（<code>0</code>~<code>255</code>）给对应的特征赋值（这里我们根据实践选择赋值为<code>5.0</code>，可自行调整）。这样总共会有<code>N * 2 * 256</code>个特征向量。这样抽取特征有个缺点：Overfitting，因为现实中不同的字符提供的特征并不相同，这样对所有字符一视同仁会造成很大的噪音。为了解决这个问题，我们在语义层次加入了部分高权值的特征来平衡：对像字母，数字，加号，分号等有特殊意义的字符给予高于普通字符权值的特征。鉴于朴素贝叶斯算法对稀疏特征向量的支持良好，所以这个模型时可行的。</p>
+<h2 id="训练与测试"><a href="#训练与测试" class="headerlink" title="训练与测试"></a>训练与测试</h2><p>这里我们使用了 Spark MLlib 的 PipeLine。它对 Spark 的各种机器学习算法进行了抽象，统一了接口（<code>DataFrame</code>）。</p>
+<p>这是我们使用 PipeLine 生成 Model 的函数：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span></span>(trainingDataFrame: <span class="type">DataFrame</span>): <span class="type">PipelineModel</span> = &#123;</span><br><span class="line">    <span class="keyword">val</span> naiveBayes = <span class="keyword">new</span> <span class="type">NaiveBayes</span>()</span><br><span class="line">      .setSmoothing(<span class="number">1.0</span>)</span><br><span class="line">      .setModelType(<span class="string">"multinomial"</span>)</span><br><span class="line">      .setLabelCol(<span class="string">"label"</span>)</span><br><span class="line">      .setFeaturesCol(<span class="string">"features"</span>)</span><br><span class="line">    <span class="keyword">val</span> pipeline = <span class="keyword">new</span> <span class="type">Pipeline</span>()</span><br><span class="line">      .setStages(<span class="type">Array</span>(naiveBayes))</span><br><span class="line"></span><br><span class="line">    pipeline.fit(trainingDataFrame)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是我们的测试函数：</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// test(testDataFrame)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span></span>(testDataFrame: <span class="type">DataFrame</span>): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> predictions = model.transform(testDataFrame)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> multiclassClassificationEvaluator = <span class="keyword">new</span> <span class="type">MulticlassClassificationEvaluator</span>()</span><br><span class="line">    .setLabelCol(<span class="string">"label"</span>)</span><br><span class="line">    .setPredictionCol(<span class="string">"prediction"</span>)</span><br><span class="line">    .setMetricName(<span class="string">"precision"</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> accuracy = multiclassClassificationEvaluator.evaluate(predictions)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> predictionAndLabel = predictions.select(<span class="string">"prediction"</span>, <span class="string">"label"</span>).map(r =&gt; (r.getDouble(<span class="number">0</span>), r.getDouble(<span class="number">1</span>)))</span><br><span class="line">  <span class="keyword">val</span> metrics = <span class="keyword">new</span> <span class="type">MulticlassMetrics</span>(predictionAndLabel)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">val</span> stringBuilder = <span class="keyword">new</span> scala.collection.mutable.<span class="type">StringBuilder</span>()</span><br><span class="line"></span><br><span class="line">  stringBuilder.append(<span class="string">"\n"</span>)</span><br><span class="line">  stringBuilder.append(accuracy)</span><br><span class="line">  stringBuilder.append(<span class="string">"\n"</span>)</span><br><span class="line">  stringBuilder.append(metrics.confusionMatrix.toString(<span class="number">10000</span>, <span class="number">10000</span>))</span><br><span class="line">  stringBuilder.append(<span class="string">"\n"</span>)</span><br><span class="line">  <span class="type">DataType</span>.values.foreach(t =&gt; stringBuilder.append(t.toString.padTo(<span class="number">20</span>, <span class="string">" "</span>).mkString + <span class="string">"--&gt;\t"</span> + metrics.precision(t.id.toDouble) + <span class="string">"\n"</span>))</span><br><span class="line">  stringBuilder.append(<span class="string">"\n"</span>)</span><br><span class="line"></span><br><span class="line">  println(stringBuilder)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我们输出了总体的准确率，混淆矩阵和各数据类别的准确率：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">0.9997833100592286</span><br><span class="line">7485.0  9.0     0.0     0.0     0.0      0.0    0.0     0.0     0.0     0.0     0.0     </span><br><span class="line">0.0     7512.0  0.0     0.0     0.0      0.0    0.0     0.0     0.0     0.0     0.0     </span><br><span class="line">0.0     0.0     9937.0  0.0     0.0      0.0    0.0     0.0     0.0     0.0     0.0     </span><br><span class="line">0.0     0.0     0.0     9935.0  2.0      0.0    0.0     0.0     0.0     0.0     0.0     </span><br><span class="line">0.0     0.0     0.0     0.0     12630.0  0.0    0.0     0.0     0.0     0.0     0.0     </span><br><span class="line">0.0     1.0     0.0     0.0     0.0      657.0  0.0     0.0     0.0     0.0     0.0     </span><br><span class="line">0.0     0.0     0.0     0.0     0.0      0.0    9983.0  5.0     0.0     0.0     0.0     </span><br><span class="line">0.0     0.0     0.0     0.0     0.0      0.0    1.0     5038.0  0.0     0.0     0.0     </span><br><span class="line">0.0     0.0     0.0     0.0     0.0      0.0    0.0     0.0     9970.0  0.0     0.0     </span><br><span class="line">0.0     0.0     0.0     0.0     0.0      0.0    0.0     0.0     0.0     4996.0  0.0     </span><br><span class="line">0.0     0.0     0.0     0.0     0.0      0.0    0.0     0.0     0.0     0.0     4907.0  </span><br><span class="line">text                --&gt;	1.0</span><br><span class="line">integer             --&gt;	0.9986705663387397</span><br><span class="line">double              --&gt;	1.0</span><br><span class="line">email               --&gt;	1.0</span><br><span class="line">fake email          --&gt;	0.9998416719442685</span><br><span class="line">post code           --&gt;	1.0</span><br><span class="line">ipv4                --&gt;	0.9998998397435898</span><br><span class="line">fake ipv4           --&gt;	0.9990085266706326</span><br><span class="line">uuid                --&gt;	1.0</span><br><span class="line">date                --&gt;	1.0</span><br><span class="line">time                --&gt;	1.0</span><br></pre></td></tr></table></figure>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>从上面的测试输出可以看出总体准确率还是不错的，不过在文本与整数，真邮箱与假邮箱和真 IP 与 假 IP 上的识别还存在问题。用个例测试的结论也是如此，究其原因应该是这几个分类的特征仍然没有很好的区分开。</p>
+<p>在我们的机器上（i5，8G 内存）上的测试时间约为 1 分钟。并且目前 Spark 已支持将 Pipeline 保存到文件中。理论上应该能够进行实时计算。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spark/" rel="tag">#Spark</a>
+          
+            <a href="/tags/机器学习/" rel="tag">#机器学习</a>
+          
+            <a href="/tags/朴素贝叶斯/" rel="tag">#朴素贝叶斯</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/22/利用 Cloud 9 制作 GitBook 电子书/" rel="next" title="利用 Cloud 9 制作 GitBook 电子书">
+                <i class="fa fa-chevron-left"></i> 利用 Cloud 9 制作 GitBook 电子书
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/04/05/Atom 下配置 Python 开发环境/" rel="prev" title="Atom 下配置 Python 开发环境">
+                Atom 下配置 Python 开发环境 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="KaiserY" />
+          <p class="site-author-name" itemprop="name">KaiserY</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/KaiserY" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.duolingo.com/KaiserY" target="_blank">
+                  
+                    <i class="fa fa-globe"></i>
+                  
+                  duolingo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#选型"><span class="nav-number">1.</span> <span class="nav-text">选型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据类别"><span class="nav-number">2.1.</span> <span class="nav-text">数据类别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练数据"><span class="nav-number">2.2.</span> <span class="nav-text">训练数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征抽取"><span class="nav-number">3.</span> <span class="nav-text">特征抽取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练与测试"><span class="nav-number">4.</span> <span class="nav-text">训练与测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">5.</span> <span class="nav-text">结论</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KaiserY</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
